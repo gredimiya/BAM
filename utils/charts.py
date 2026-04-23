@@ -130,3 +130,43 @@ def chart_monthly_evolution(df):
     )
     
     return fig
+
+
+def chart_monthly_price_evolution(df):
+    """Create line chart for monthly purchase price evolution"""
+    if df.empty:
+        return go.Figure().add_annotation(
+            text="Pas de données",
+            xref="paper", yref="paper",
+            x=0.5, y=0.5, showarrow=False
+        )
+    
+    # Only sum prices for purchased items (not offered)
+    df_purchased = df[df["tome_offert"] == False].copy()
+    
+    if df_purchased.empty:
+        return go.Figure().add_annotation(
+            text="Pas de données",
+            xref="paper", yref="paper",
+            x=0.5, y=0.5, showarrow=False
+        )
+    
+    df_purchased["year_month"] = pd.to_datetime(df_purchased["tome_date_achat"]).dt.strftime("%Y-%m")
+    grouped = df_purchased.groupby("year_month")["tome_prix"].sum().reset_index(name="total_price")
+    grouped = grouped.sort_values("year_month")
+    
+    fig = px.line(
+        grouped,
+        x="year_month",
+        y="total_price",
+        markers=True,
+        labels={"year_month": "Mois", "total_price": "Prix total (€)"},
+        title="Évolution des dépenses par mois"
+    )
+    
+    fig.update_layout(
+        hovermode="x unified",
+        height=400
+    )
+    
+    return fig

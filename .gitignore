@@ -1,1 +1,65 @@
-venv
+# Environnement virtuel Python
+venv/
+env/
+ENV/
+.venv
+
+# Dépendances Python
+*.egg-info/
+dist/
+build/
+*.pyc
+__pycache__/
+.Python
+*.so
+
+# IDEs et Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Streamlit
+.streamlit/
+streamlit.log
+cache/
+*.cache
+
+# Base de données
+data/*.db
+data/*.db-journal
+*.sqlite
+*.sqlite3
+
+# Variables d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Fichiers OS
+Thumbs.db
+.DS_Store
+
+# Résidus de développement
+debug.log
+*.pid
+.ipynb_checkpoints/
+
+# Backups
+*.backup
+data/*.backup

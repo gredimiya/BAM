@@ -159,8 +159,9 @@ with tab3:
                                 st.write(f"{format_price(tome['tome_prix'])} - {tome['tome_date_achat']} {'🎁' if tome['tome_offert'] else '✅'}")
                             
                             with tome_col3:
-                                if st.button("✏️", key=f"edit_tome_{tome['tome_id']}"):
+                                if st.button("✏️", key=f"btn_edit_tome_{tome['tome_id']}"):
                                     st.session_state[f"edit_tome_{tome['tome_id']}"] = True
+                                    st.rerun()
                             
                             with tome_col4:
                                 if st.button("🗑️", key=f"delete_tome_{tome['tome_id']}"):

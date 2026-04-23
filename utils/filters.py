@@ -9,13 +9,13 @@ def apply_filters(df, filters):
     
     filtered_df = df.copy()
     
-    # Filter by edition
-    if filters.get("edition") and filters["edition"] != "Tous":
-        filtered_df = filtered_df[filtered_df["manga_edition"] == filters["edition"]]
+    # Filter by editions (multiple selection)
+    if filters.get("editions") and len(filters["editions"]) > 0:
+        filtered_df = filtered_df[filtered_df["manga_edition"].isin(filters["editions"])]
     
-    # Filter by author
-    if filters.get("author") and filters["author"] != "Tous":
-        filtered_df = filtered_df[filtered_df["manga_author"] == filters["author"]]
+    # Filter by authors (multiple selection)
+    if filters.get("authors") and len(filters["authors"]) > 0:
+        filtered_df = filtered_df[filtered_df["manga_author"].isin(filters["authors"])]
     
     # Filter by date range
     if filters.get("date_from"):

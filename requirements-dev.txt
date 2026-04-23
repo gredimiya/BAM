@@ -1,0 +1,29 @@
+# Dépendances de Développement
+# Installez avec: pip install -r requirements-dev.txt
+
+# Dépendances de production (voir requirements.txt)
+-r requirements.txt
+
+# Linting et Formatage
+pylint>=2.17.0
+black>=23.0.0
+flake8>=6.0.0
+isort>=5.12.0
+
+# Tests
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-asyncio>=0.21.0
+
+# Documentation
+sphinx>=6.0.0
+sphinx-rtd-theme>=1.2.0
+
+# Outils de développement
+ipython>=8.0.0
+ipdb>=0.13.0
+jupyter>=1.0.0
+notebook>=6.5.0
+
+# Gestion des tâches
+invoke>=2.0.0

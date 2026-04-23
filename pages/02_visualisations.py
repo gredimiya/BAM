@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from database.db import get_all_data_joined, get_metrics
 from utils.filters import apply_filters, get_unique_editions, get_unique_authors
-from utils.charts import chart_top_authors, chart_top_mangas, chart_edition_distribution, chart_monthly_evolution
+from utils.charts import chart_top_authors, chart_top_mangas, chart_edition_distribution, chart_monthly_evolution, chart_monthly_price_evolution
 from utils.data_helpers import format_price
 
 st.set_page_config(page_title="Visualisations", layout="wide")
@@ -18,23 +18,33 @@ st.subheader("🔍 Filtres")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    editions = ["Tous"] + get_unique_editions(df)
-    selected_edition = st.selectbox("Édition", editions, key="filter_edition")
+    editions = get_unique_editions(df)
+    selected_editions = st.multiselect("Édition", editions, key="filter_edition")
 
 with col2:
-    authors = ["Tous"] + get_unique_authors(df)
-    selected_author = st.selectbox("Auteur", authors, key="filter_author")
+    authors = get_unique_authors(df)
+    selected_authors = st.multiselect("Auteur", authors, key="filter_author")
+
+# Get min and max dates from data for better defaults
+min_date = None
+max_date = None
+if not df.empty and "tome_date_achat" in df.columns:
+    valid_dates = pd.to_datetime(df["tome_date_achat"], errors='coerce')
+    valid_dates = valid_dates.dropna()
+    if not valid_dates.empty:
+        min_date = valid_dates.min().date()
+        max_date = valid_dates.max().date()
 
 with col3:
-    date_from = st.date_input("Date de", key="filter_date_from")
+    date_from = st.date_input("Date de", value=min_date, key="filter_date_from")
 
 with col4:
-    date_to = st.date_input("Date à", key="filter_date_to")
+    date_to = st.date_input("Date à", value=max_date, key="filter_date_to")
 
 # Apply filters
 filters = {
-    "edition": selected_edition,
-    "author": selected_author,
+    "editions": selected_editions,
+    "authors": selected_authors,
     "date_from": date_from,
     "date_to": date_to
 }
@@ -79,3 +89,8 @@ with col3:
 
 with col4:
     st.plotly_chart(chart_monthly_evolution(df_filtered), use_container_width=True)
+
+col5, col6 = st.columns(2)
+
+with col5:
+    st.plotly_chart(chart_monthly_price_evolution(df_filtered), use_container_width=True)
