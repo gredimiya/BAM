@@ -130,7 +130,3 @@ Vous pouvez exporter vos données en CSV depuis la page "📋 Tableau des donné
 ## ⚙️ Configuration
 
 Aucune configuration supplémentaire n'est requise. La base de données SQLite est créée automatiquement au premier lancement.
-
-## 📄 Licence
-
-Ce projet est fourni à titre d'exemple.
