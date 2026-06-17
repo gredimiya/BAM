@@ -275,9 +275,9 @@ def get_metrics():
     conn = get_connection()
     cursor = conn.cursor()
     
-    # Total number of mangas
-    cursor.execute("SELECT COUNT(*) as count FROM Manga")
-    total_mangas = cursor.fetchone()[0]
+    # Total number of tomes
+    cursor.execute("SELECT COUNT(*) as count FROM Tome")
+    total_tomes = cursor.fetchone()[0]
     
     # Number of unique mangas
     cursor.execute("SELECT COUNT(DISTINCT manga_id) as count FROM Tome")
@@ -299,7 +299,7 @@ def get_metrics():
     conn.close()
     
     return {
-        "total_mangas": total_mangas,
+        "total_tomes": total_tomes,
         "mangas_with_tomes": mangas_with_tomes,
         "total_value": total_value,
         "tomes_purchased": tomes_purchased,

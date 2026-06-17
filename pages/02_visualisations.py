@@ -57,7 +57,7 @@ st.subheader("📈 Métriques")
 metric_col1, metric_col2, metric_col3, metric_col4, metric_col5 = st.columns(5)
 
 with metric_col1:
-    st.metric("Nombre total de mangas", metrics["total_mangas"])
+    st.metric("Nombre total de tomes", metrics["total_tomes"])
 
 with metric_col2:
     st.metric("Nombre de mangas différents", metrics["mangas_with_tomes"])
